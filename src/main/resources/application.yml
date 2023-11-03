@@ -19,3 +19,10 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
 
+management:
+  endpoint:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
