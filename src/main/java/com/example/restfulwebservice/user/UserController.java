@@ -1,5 +1,8 @@
 package com.example.restfulwebservice.user;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -13,6 +16,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Tag(name = "User API", description = "User 테스트용 API")
 @RestController
 public class UserController {
 
@@ -22,11 +26,14 @@ public class UserController {
         this.service = service;
     }
 
+    @Operation(summary = "사용자 조회", description = "사용자를 조회합니다.")
     @GetMapping("/users")
     public List<User> retrieveAllUsers() {
         return service.findAll();
     }
 
+    @Operation(summary = "사용자 상세 조회", description = "사용자 상세를 조회합니다.")
+    @Parameter(name = "id", description = "사용자 ID")
     @GetMapping("/users/{id}")
     public ResponseEntity<EntityModel<User>> retrieveUser(@PathVariable int id) {
         User user = service.findOne(id);
